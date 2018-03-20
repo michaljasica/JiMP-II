@@ -18,7 +18,7 @@ namespace tinyurl {
                 state->at(i) = state->at(i) - 74;
                 continue;
             } else if (state->at(i) == 'Z')
-                state->at(i) = state->at(i) + 7;
+                state->at(i) = state->at(i) + 7 ;
             else if (state->at(i) == '9')
                 state->at(i) = state->at(i) + 8;
             else
