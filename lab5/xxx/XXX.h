@@ -17,7 +17,7 @@ public:
     //domyślny konstruktor
     XXX();
     //konstruktory parametryczne
-    XXX(int param);
+    XXX(int param) ;
     XXX(const std::string name);
 
     //Rule of five://

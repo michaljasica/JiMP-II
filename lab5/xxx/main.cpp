@@ -6,7 +6,7 @@
 #include "XXX.h"
 
 XXX make_copy(XXX xxx) {
-    return xxx;
+    return xxx ;
 }
 
 int main() {

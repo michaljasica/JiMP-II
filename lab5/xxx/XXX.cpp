@@ -39,7 +39,7 @@ XXX::~XXX() {
 
 //konstruktor kopiujący:
 XXX::XXX(const XXX& xxx) {
-    size_t sz = strlen(xxx.name_);
+    size_t sz = strlen(xxx.name_) ;
     name_ = new char[sz];
     strcpy(name_,xxx.name_);
     //Teraz nowy obiekt pokazuje na nowy fragment pamięci,
