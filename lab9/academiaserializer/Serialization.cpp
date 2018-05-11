@@ -4,6 +4,3 @@
 
 #include "Serialization.h"
 
-void academia::Room::Serialize(academia::Serializer *serializer) const {
-
-}
