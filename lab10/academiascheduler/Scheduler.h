@@ -13,11 +13,11 @@ namespace academia{
     class SchedulingItem{
     public:
         SchedulingItem(int course,int teacher,int room,int time, int year):course_id(course),teacher_id(teacher),room_id(room),time_slot(time),year_(year){};
-        int CourseId();
-        int TeacherId();
-        int RoomId();
+        int CourseId() const;
+        int TeacherId() const;
+        int RoomId() const;
         int TimeSlot() const;
-        int Year();
+        int Year() const;
         int time_slot;
     private:
         int course_id;
@@ -44,6 +44,24 @@ namespace academia{
 
     };
 
+    class Scheduler{
+    public:
+        virtual Schedule PrepareNewSchedule(const std::vector<int> &rooms, const std::map<int, std::vector<int>> &teacher_courses_assignment, const std::map<int, std::set<int>> &courses_of_year, int n_time_slots)=0;
+
+    private:
+    };
+
+    class NoViableSolutionFound:public std::invalid_argument{
+    public:
+        NoViableSolutionFound(): std::invalid_argument("Invalid argument"){};
+
+    };
+
+    class GreedyScheduler : public Scheduler{
+    public:
+        Schedule PrepareNewSchedule(const std::vector<int> &rooms, const std::map<int, std::vector<int>> &teacher_courses_assignment, const std::map<int, std::set<int>> &courses_of_year, int n_time_slots) override;
+
+    };
 };
 
 

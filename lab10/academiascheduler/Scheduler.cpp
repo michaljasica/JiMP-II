@@ -2,6 +2,8 @@
 // Created by malikmontana on 14.05.18.
 //
 
+#include <map>
+#include <set>
 #include "Scheduler.h"
 
 academia::Schedule academia::Schedule::OfTeacher(int teacher_id) const {
@@ -53,15 +55,15 @@ academia::Schedule academia::Schedule::OfYear(int year) const {
     return tmp;
 }
 
-int academia::SchedulingItem::CourseId() {
+int academia::SchedulingItem::CourseId() const{
     return course_id;
 }
 
-int academia::SchedulingItem::TeacherId() {
+int academia::SchedulingItem::TeacherId() const{
     return teacher_id;
 }
 
-int academia::SchedulingItem::RoomId() {
+int academia::SchedulingItem::RoomId() const {
     return room_id;
 }
 
@@ -69,6 +71,39 @@ int academia::SchedulingItem::TimeSlot() const{
     return time_slot;
 }
 
-int academia::SchedulingItem::Year() {
+int academia::SchedulingItem::Year() const{
     return year_;
+}
+
+
+academia::Schedule academia::GreedyScheduler::PrepareNewSchedule(const std::vector<int> &rooms,
+                                                                 const std::map<int, std::vector<int>> &teacher_courses_assignment,
+                                                                 const std::map<int, std::set<int>> &courses_of_year,
+                                                                 int n_time_slots) {
+
+    Schedule result;
+    std::vector<int> rooms_=rooms;
+
+    for (auto teacher_course : teacher_courses_assignment) {
+
+        if ((teacher_course.second.size() >= n_time_slots))
+            throw NoViableSolutionFound();
+
+        for(auto teacher : teacher_course.second) {
+            for (auto year : courses_of_year) {
+
+                if ((year.second.size() >= n_time_slots))
+                    throw NoViableSolutionFound();
+
+                for (auto course : year.second) {
+                    if (teacher  == course ) {
+                        SchedulingItem tmp(course, teacher_course.first, rooms_.back(),rooms_.size(), year.first);
+                        result.InsertScheduleItem(tmp);
+                        rooms_.pop_back();
+                    }
+                }
+            }
+        }
+    }
+    return result;
 }
